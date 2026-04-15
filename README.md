@@ -1,45 +1,68 @@
-SauceDemo Advanced Automation Framework 🚀
+# 🚀 SauceDemo Advanced Automation Framework
 
-This project implements a professional-grade automation solution for the SauceDemo e-commerce platform. It is designed with a focus on Resilience, Scalability, and Security validation, using Java, Selenium WebDriver, and TestNG.
+This project implements a **professional-grade automation solution** for the SauceDemo e-commerce platform. It is engineered with a focus on **Resilience, Scalability, and Security validation**, leveraging the power of **Java, Selenium WebDriver, and TestNG**.
 
-🛠 Execution Instructions
+---
 
-Prerequisites: Ensure Java JDK 11+ and Maven are installed on your machine.
+## 🛠 Execution Instructions
 
-Environment Setup: Sensitive data and environment variables (URL, credentials) are externalized in src/test/resources/config.properties.
+### 📋 Prerequisites
+* **Java JDK 11+**
+* **Apache Maven** installed and configured in your environment.
 
-Execution: Run the entire suite via the testng.xml file or execute the tests package from your IDE.
+### ⚙️ Environment Setup
+* **Externalized Configuration:** Sensitive data and environment variables (URL, credentials) are managed via `src/test/resources/config.properties`.
 
-Failure Analysis: A custom listener captures screenshots automatically upon test failure, saving them to the screenshots/ directory for rapid debugging.
+### 🏃 Running the Suite
+* **via TestNG:** Run the entire suite using the `testng.xml` file.
+* **via Maven:** Execute `mvn clean test` from the terminal.
+* **via IDE:** Run the `tests` package directly from your preferred IDE.
 
-📁 Architecture & Design Patterns
+> [!IMPORTANT]  
+> **Failure Analysis:** A custom listener captures screenshots automatically upon test failure, saving them to the `screenshots/` directory for rapid debugging.
 
-The framework strictly adheres to the Page Object Model (POM) to ensure a clean separation between test logic and UI interactions:
+---
 
-Infrastructure Layer: BasePage and BaseTest classes encapsulate shared behaviors (WebDriver lifecycle, synchronization, and configuration loading).
+## 📁 Architecture & Design Patterns
 
-Object Repository: Each web page has a dedicated class in src/main/java/pages, promoting high reusability and low maintenance.
+The framework strictly adheres to the **Page Object Model (POM)** to ensure a clean separation between test logic and UI interactions.
 
-Test Suite: Organized by functional domains (Login, Cart, Purchase Flow, Security).
+### 🏗️ Infrastructure Layer
+Classes like `BasePage` and `BaseTest` encapsulate shared behaviors, including:
+* WebDriver lifecycle management.
+* Dynamic synchronization (Waits).
+* Global configuration loading.
 
-💡 Key Technical Decisions
+### 📦 Object Repository
+Each web page has a dedicated class in `src/main/java/pages`, promoting:
+* **High Reusability:** Logic is defined once and used across multiple tests.
+* **Low Maintenance:** UI changes only require updates in a single Page class.
 
-To elevate the framework beyond basic scripting, the following professional practices were implemented:
+### 🧪 Test Suite organization
+The suite is logically segmented into functional domains:
+* **Login:** Authentication and Data-Driven scenarios.
+* **Cart:** Persistence and integrity.
+* **Purchase Flow:** End-to-End business logic.
+* **Security:** Session resilience.
 
-1. Robustness Against UI Overlays (The JS Solution)
-   Chrome’s built-in security alerts (e.g., leaked password warnings) often obstruct UI elements in automation. I implemented a JavaScript Executor layer for critical interactions. This bypasses physical pointer limitations, ensuring 100% click reliability even when the UI is visually obscured.
+---
 
-2. Intelligent Synchronization (Explicit vs. Implicit)
-   I avoided unstable Thread.sleep() commands entirely. Instead, I implemented Fluent/Explicit Waits coupled with URL state validation. This ensures the tests are "aware" of the application's state before proceeding, significantly reducing flakiness.
+## 💡 Key Technical Decisions
 
-3. Data-Driven Testing (Scalability)
-   The Login module utilizes a @DataProvider architecture. This allows the suite to validate multiple personas and edge cases (locked-out users, invalid credentials, empty fields) through a single, maintainable test method.
+### 1️⃣ Robustness Against UI Overlays (The JS Solution)
+Chrome’s built-in security alerts (e.g., leaked password warnings) can obstruct UI elements. I implemented a **JavaScript Executor layer** for critical interactions. This bypasses physical pointer limitations, ensuring **100% click reliability** even when the UI is visually obscured.
 
-4. Advanced Resilience & Security Edge Cases
-   Beyond standard flows, I implemented a Session Integrity Test:
+### 2️⃣ Intelligent Synchronization
+I strictly avoided unstable `Thread.sleep()` commands. Instead, I implemented **Fluent/Explicit Waits** coupled with **URL state validation**. This ensures tests are "aware" of the application's state, significantly reducing flakiness.
 
-The Scenario: Deleting browser cookies (driver.manage().deleteAllCookies()) mid-checkout.
+### 3️⃣ Data-Driven Testing (Scalability)
+The Login module utilizes a `@DataProvider` architecture. This allows the suite to validate multiple personas and edge cases (locked-out users, invalid credentials, empty fields) through a **single, maintainable test method**.
 
-The Goal: To verify if the system enforces server-side session validation.
+### 4️⃣ Advanced Resilience & Security Edge Cases
+Beyond standard flows, I implemented a **Session Integrity Test**:
+* **The Scenario:** Deleting browser cookies mid-checkout.
+* **The Goal:** To verify if the system enforces server-side session validation.
+* **The Outcome:** Proved the system's ability to protect the checkout funnel by redirecting unauthorized sessions back to the login page.
 
-The Outcome: Proved the system's ability to protect the checkout funnel by redirecting unauthorized sessions back to the login page.
+---
+*Created with ❤️ by Tammar Chen.*
